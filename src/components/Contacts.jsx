@@ -6,10 +6,11 @@ function Contacts(props) {
 	return (
     <Container>
 		  <Row>
-			  {props.contactInfo.map((item, index) => 
-                { return <Contact contactInfo={item} key={index}/>}
-                )
-              }
+			  {props.contactInfo.map((item) => 
+          { return <Contact contactInfo={item} key={item.id} deleteContact={props.deleteContact} editContact={props.editContact}/>
+          }
+         )
+        }
 		  </Row>
     </Container>
 	);
