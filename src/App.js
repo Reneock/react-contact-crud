@@ -6,11 +6,7 @@ import ContactsForm from "./components/ContactsForm";
 import './App.css';
 
 function App() {
-	const [contacts, setContacts] = useState([
-		{ name: "Kwame Mens", phonenumber: "0243786321", location: "Accra", id:"1cd" },
-		{ name: "Abena John", phonenumber: "0509876310", location: "Koforidua", id:"2cd" },
-		{ name: "Kweku Sark", phonenumber: "0263337730", location: "Nalerigu", id:"3cd" }
-	]);
+	const [contacts, setContacts] = useState([]);
 
 	const addNewContact = (contact) => {
 		contact.id = Math.random().toString();

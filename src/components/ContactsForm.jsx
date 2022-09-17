@@ -1,6 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import {addContact} from '../actions/contactActions';
+import {connect} from 'react-redux';
+import {v4 as uuid} from "uuid";
 
 function ContactsForm(props) {
 	const [name, setName] = useState("");
@@ -14,7 +17,8 @@ function ContactsForm(props) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		props.newContact({name, phonenumber, location});
+		props.addNewContact({id: uuid(), name, phonenumber, location});
+		console.log ({id: uuid(), name, phonenumber, location});
 		setName("");
 		setPhonenumber("");
 		setLocation("");
@@ -44,4 +48,8 @@ function ContactsForm(props) {
 	);
 }
 
-export default ContactsForm;
+const mapDispatchToProps =  {
+  addNewContact: addContact,
+};
+
+export default connect (null, mapDispatchToProps) (ContactsForm);
