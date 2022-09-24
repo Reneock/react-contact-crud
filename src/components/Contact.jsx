@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Col, Card, Button, Modal } from "react-bootstrap";
 import IonIcon from "@reacticons/ionicons";
 import EditContact from "./EditContact";
+import {useDispatch} from "react-redux";
+import {deleteContact} from "../actions/contactActions";
 
 function Contact(props) {
 
@@ -9,10 +11,11 @@ function Contact(props) {
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
+	const dispatch = useDispatch();
 
 	const handleDelete = (e) => {
 		e.preventDefault();
-		props.deleteContact(props.contactInfo.id);
+		dispatch(deleteContact(props.contactInfo.id));
 	};
 
 	return (
@@ -27,7 +30,7 @@ function Contact(props) {
 			</Modal>
 
 			<Col md="4" style={{ marginBottom: "1rem" }}>
-				<Card style={{ backgroundColor: "blue", color: "white" }}>
+				<Card style={{ backgroundColor: "#9932cc", color: "white" }}>
 					<Card.Body>
 						<Card.Title style={{ color: "black" }}>CONTACT DETAILS</Card.Title>
 						<Card.Title>{props.contactInfo.name} </Card.Title>

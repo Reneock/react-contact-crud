@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import {editContact} from '../actions/contactActions';
+import {connect} from "react-redux";
 
 function EditContact (props) {
 	const [name, setName] = useState(props.contactInfo.name);
@@ -15,7 +17,8 @@ function EditContact (props) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		props.editContact(props.contactInfo.id, {name, phonenumber, location});
+		let newDetails = {id:props.contactInfo.id, name, phonenumber, location};
+		props.editContact(newDetails);
 		setName("");
 		setPhonenumber("");
 		setLocation("");
@@ -23,7 +26,7 @@ function EditContact (props) {
 	};
 
 	return (
-		<Form style={{border:"1px solid purple", backgroundColor: "purple", color: "white", height: "350px"}}>
+		<Form style={{border:"1px solid purple", backgroundColor: "#9932cc", color: "white", height: "350px"}}>
 			<Form.Group className="mb-3" controlId="formBasicEmail" style={{width: "300px", marginTop:"20px", marginLeft:"50px"}}>
 				<Form.Label>Name </Form.Label>
 				<Form.Control type="name" value={name} onChange={(e)=>{setName(e.target.value);}}/>
@@ -46,4 +49,8 @@ function EditContact (props) {
 	);
 }
 
-export default EditContact ;
+const mapDispatchToProps={
+	editContact: editContact,
+}
+
+export default connect (null, mapDispatchToProps) (EditContact) ;
