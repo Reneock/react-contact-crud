@@ -1,9 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import {addContact} from '../actions/contactActions';
-import {connect} from 'react-redux';
+//import {addContact} from '../actions/contactActions';
+//import {connect} from 'react-redux';
 import {v4 as uuid} from "uuid";
+import { doc, setDoc } from "firebase/firestore"; 
+import {db} from "../firebase/Config";
+
 
 function ContactsForm(props) {
 	const [name, setName] = useState("");
@@ -15,10 +18,20 @@ function ContactsForm(props) {
     setLocation(e.target.value);
   };
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		props.addNewContact({id: uuid(), name, phonenumber, location});
+		//props.addNewContact({id: uuid(), name, phonenumber, location});
+		let newContact = {id: uuid(), name, phonenumber, location};
+
 		console.log ({id: uuid(), name, phonenumber, location});
+
+		try{
+      await setDoc(doc(db, "contacts", newContact.id), newContact);
+    }
+    catch(e){
+      console.log (e);
+    }
+
 		setName("");
 		setPhonenumber("");
 		setLocation("");
@@ -48,8 +61,7 @@ function ContactsForm(props) {
 	);
 }
 
-const mapDispatchToProps =  {
-  addNewContact: addContact,
-};
+//const mapDispatchToProps =  {addNewContact: addContact,};
 
-export default connect (null, mapDispatchToProps) (ContactsForm);
+//export default connect (null, mapDispatchToProps) (ContactsForm);
+export default ContactsForm;

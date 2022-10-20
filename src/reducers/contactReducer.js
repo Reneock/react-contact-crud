@@ -13,7 +13,7 @@ let initialState = {
 let contactReducer =(state=initialState, action)=>{
   switch(action.type){
 	case "ADD_CONTACT":
-    return {...state, contacts: [...state.contacts, action.payload] };
+    return {...state, contacts: action.payload };
 
   case "EDIT_CONTACT":
     const editedInfo = state.contacts.map ((contact)=>{
