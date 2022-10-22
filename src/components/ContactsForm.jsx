@@ -1,10 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-//import {addContact} from '../actions/contactActions';
-//import {connect} from 'react-redux';
 import {v4 as uuid} from "uuid";
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, setDoc, serverTimestamp } from "firebase/firestore"; 
 import {db} from "../firebase/Config";
 
 
@@ -21,7 +19,7 @@ function ContactsForm(props) {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		//props.addNewContact({id: uuid(), name, phonenumber, location});
-		let newContact = {id: uuid(), name, phonenumber, location};
+		let newContact = {id: uuid(), name, phonenumber, location, timestamp: serverTimestamp(),};
 
 		console.log ({id: uuid(), name, phonenumber, location});
 
@@ -61,7 +59,5 @@ function ContactsForm(props) {
 	);
 }
 
-//const mapDispatchToProps =  {addNewContact: addContact,};
 
-//export default connect (null, mapDispatchToProps) (ContactsForm);
 export default ContactsForm;

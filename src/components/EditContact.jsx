@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import {editContact} from '../actions/contactActions';
 import {connect} from "react-redux";
+import {doc, updateDoc} from "firebase/firestore";
+import {db} from "../firebase/Config";
 
 function EditContact (props) {
 	const [name, setName] = useState(props.contactInfo.name);
@@ -18,7 +20,16 @@ function EditContact (props) {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		let newDetails = {id:props.contactInfo.id, name, phonenumber, location};
-		props.editContact(newDetails);
+		//props.editContact(newDetails);
+		const editingContact = doc (db, "contacts", props.contactInfo.id);
+
+    try{
+      await updateDoc (editingContact, newDetails);
+    }
+    catch(e){
+      console.log (e);
+    }
+
 		setName("");
 		setPhonenumber("");
 		setLocation("");
@@ -49,8 +60,6 @@ function EditContact (props) {
 	);
 }
 
-const mapDispatchToProps={
-	editContact: editContact,
-}
+const mapDispatchToProps={editContact,}
 
 export default connect (null, mapDispatchToProps) (EditContact) ;

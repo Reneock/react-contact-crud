@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Col, Card, Button, Modal } from "react-bootstrap";
 import IonIcon from "@reacticons/ionicons";
 import EditContact from "./EditContact";
-import {useDispatch} from "react-redux";
+import {connect} from "react-redux";
 import {deleteContact} from "../actions/contactActions";
+import {doc, deleteDoc} from "firebase/firestore";
+import {db} from "../firebase/Config";
 
 function Contact(props) {
 
@@ -11,11 +13,17 @@ function Contact(props) {
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-	const dispatch = useDispatch();
+	//const dispatch = useDispatch();
 
-	const handleDelete = (e) => {
+	const handleDelete = async (e) => {
 		e.preventDefault();
-		dispatch(deleteContact(props.contactInfo.id));
+		//dispatch(deleteContact(props.contactInfo.id));
+		try{
+			await deleteDoc(doc(db, "contacts", props.contactInfo.id));
+		}
+		catch(e){
+			console.log(e)
+		}
 	};
 
 	return (
@@ -49,4 +57,6 @@ function Contact(props) {
 	);
 };
 
-export default Contact;
+const mapDispatchToProps = {deleteContact,}
+
+export default connect (null, mapDispatchToProps) (Contact);
