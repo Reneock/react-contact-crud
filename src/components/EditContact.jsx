@@ -17,18 +17,18 @@ function EditContact (props) {
     setLocation(e.target.value);
   };
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		let newDetails = {id:props.contactInfo.id, name, phonenumber, location};
-		//props.editContact(newDetails);
+		let newInfo = {id:props.contactInfo.id, name, phonenumber, location};
+		//props.editContact(newInfo);
 		const editingContact = doc (db, "contacts", props.contactInfo.id);
-
-    try{
-      await updateDoc (editingContact, newDetails);
-    }
-    catch(e){
-      console.log (e);
-    }
+    
+		try{
+			await updateDoc (editingContact, newInfo);
+		}
+		catch(e){
+			console.log(e);
+		}
 
 		setName("");
 		setPhonenumber("");
@@ -60,6 +60,6 @@ function EditContact (props) {
 	);
 }
 
-const mapDispatchToProps={editContact,}
+const mapDispatchToProps= { editContact,};
 
-export default connect (null, mapDispatchToProps) (EditContact) ;
+export default connect (null, mapDispatchToProps) (EditContact);
