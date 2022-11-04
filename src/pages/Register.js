@@ -41,15 +41,15 @@ function Register() {
   };
 
   return (
-    <div style={{background:"#800000"}}>
+    <div style={{background:"#191970"}}>
       <Form
         style={{
           backgroundColor: "white",
-          color: "#800000",
+          color: "#191970",
           border: "2px solid white",
           marginTop: "3rem",
           width: "450px",
-          marginLeft: "440px",
+          marginLeft: "400px",
           borderRadius: "8px",
         }}
       >

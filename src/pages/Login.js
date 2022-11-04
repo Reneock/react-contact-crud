@@ -39,15 +39,15 @@ function Login() {
   };
 
   return (
-    <Form style={{ backgroundColor: "#800000", color: "white", border: "2px solid #800000", marginTop: "3rem", width: "450px", marginLeft: "450px", borderRadius: "8px"}} >
+    <Form style={{ backgroundColor: "#191970", color: "white", border: "2px solid #191970", marginTop: "3rem", width: "450px", marginLeft: "350px", borderRadius: "10px"}} >
       <h2 style={{paddingLeft: "100px", paddingTop: "15px"}}>Welcome Back!</h2>
       <h5 style={{paddingLeft: "50px"}}>Login to your RENESERVES account</h5>
       <br/>
-      <Button variant="info" onClick={handleGoogle} style={{marginLeft: "200px"}}>
+      <Button variant="info" onClick={handleGoogle} style= {{marginLeft: "200px"}}>
         <IonIcon name="logo-google"/>
       </Button>
       <br/><br/>
-      <p style={{paddingLeft: "150px"}}>or use your account</p>
+      <p style={{paddingLeft: "150px"}} >or use your account</p>
       
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label style={{paddingLeft: "30px"}}>Email address</Form.Label>
