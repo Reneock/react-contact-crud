@@ -1,13 +1,12 @@
 import React, {useEffect} from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Row, Col } from "react-bootstrap";
-import Contacts from "./components/Contacts";
-import ContactsForm from "./components/ContactsForm";
 import './App.css';
 import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
-import { db } from "./firebase/Config";
+import { db, auth } from "./firebase/Config";
 import {addContact} from "./actions/contactActions";
 import {useDispatch} from "react-redux";
+import Routing from "./Routing";
+import {LogInContact} from "./actions/authAction";
+import {onAuthStateChanged} from "firebase/auth";
 
 function App() {
 
@@ -29,18 +28,18 @@ function App() {
     readData();
   }, [dispatch]);
 
+  useEffect (()=>{
+    onAuthStateChanged(auth, (contact)=>{
+
+      if (contact)dispatch(LogInContact(contact));
+      else {dispatch(LogInContact(null));}
+
+    })
+  }, [dispatch]);
+
 	return (
     <>
-		  <Container fluid  style={{marginTop: "2rem"}}>
-			  <Row>
-				  <Col md="4">
-					  <ContactsForm />
-				  </Col>
-				  <Col>
-					  <Contacts />
-				  </Col>
-			  </Row>
-		  </Container>
+		  <Routing/>
     </>
 	);
 }
